@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Map</title>
+	<link rel="stylesheet" href="css/styles.css">
+<body>
+	<div id="map"></div>
+    <div class="search-container">
+      <div class="hamburger-menu" data-bind="click: toggleSearchList" >
+        <img src="images/hamburger_menu.svg" alt="hamburger menu">
+      </div>
+      <div class="search-list" data-bind="visible: menuVisible">
+        <input class="form-control " data-bind="textInput: Query"
+          autocomplete="off" placeholder="Filter locations">
+        <ul class="list" data-bind="foreach: filteredLocations">
+          <li class="loc-list" data-bind="text: $data.title, click: $parent.listClick"></li>
+        </ul>
+      </div>
+    </div>
+	<script src="js/knockout-3.4.0.js"></script>
+  <script src="js/jquery-3.1.0.min.js"></script>
+	<script src='js/sample.js'></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dtzRCgVlzC905jc3jSo22vdAIZGsUgg&v=3&callback=initApp&libraries=places"></script>
+</body>
+</html>

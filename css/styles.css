@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+  height: 100%;
+}
+
+.infowindow-scroll {
+  line-height: 1.35;
+  max-height: 100px;
+  max-width: 220px;
+}
+
+.search-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+
+.hamburger-menu {
+  padding-top: 30px;
+  float: left;
+}
+
+.form-control {
+  padding: 5px;
+  border: 2px darkblack;
+  border-radius: 5%;
+}
+
+.list {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+ul {
+  list-style-type: none;
+  margin: auto;
+  padding: 0;
+  max-height: 70vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+li {
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+
+li:hover {
+    background-color: rgba(200, 200, 200, 1);
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.modal-container {
+  max-width: 500px;
+  min-width: 500px;
+  max-height: 400px;
+  height: 400px;
+  width: 40%;
+  margin: 8% auto;
+  border-radius: 5%;
+  background-color: rgba(200, 200, 200, 0.8);
+  opacity: 1.0;
+  z-index: 0;
+}
+
+.btn-exit-modal {
+  margin-left: 94%;
+  width: 45px;
+}
+
+.modal-image-container {
+  height: 300px;
+  text-align: center;
+}
+
+.modal-image-container .helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.modal-image-container img {
+  margin: auto;
+  max-height: 300px;
+  max-width: 95%;
+  vertical-align: middle;
+}
+
+.btn-scroll img {
+  width: 45px;
+}
+
+.arrow-left {
+  float: left;
+}
+
+.arrow-right {
+  float: right;
+}
+
+
+@media screen and (max-width: 600px) {
+  .search-container {
+    right: 10px;
+    left: auto;
+  }
+
+  .hamburger-menu {
+    float: right;
+  }
+
+  ul {
+    max-height: 30vh;
+  }
+
+  .modal-container{
+    max-width: 95vw;
+    min-width: 95vw;
+    margin: 30% auto;
+  }
+
+  .modal-image-container img {
+    position: relative;
+    margin: auto;
+    max-width: 92vw;
+    overflow: hidden;
+    height: 250px;
+}
+
+@media screen and (max-width: 700px) and (orientation:landscape) {
+  .modal-container{
+    max-width: 95vw;
+    min-width: 95vw;
+    height: 95vh;
+    margin: 2% auto;
+  }
+
+  .modal-image-container {
+    height: 70vh;
+  }
+
+  .modal-image-container img {
+    position: relative;
+    margin: auto;
+    max-width: 95vw;
+    overflow: hidden;
+    height: 70vh;
+  }
+}
