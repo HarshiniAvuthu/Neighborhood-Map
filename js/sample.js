@@ -1,109 +1,5 @@
-var neighborhood = {
-    locations: [{
-            location: {
-                lat: 50.7374,
-                lng: 7.0982
-            },
-            title: 'Bonn',
-            formatted_address: "Bonn, Germany",
-            place_id: "ChIJSdrLfJ_hvkcRF5ZcaMb424Y",
-        },
-        {
-            location: {
-                lat: 52.5200,
-                lng: 13.4050
-            },
-            title: 'Berlin',
-            formatted_address: "Berlin, Germany",
-            place_id: "ChIJAVkDPzdOqEcRcDteW0YgIQQ",
-        },
-        {
-            location: {
-                lat: 50.1109,
-                lng: 8.6821
-            },
-            title: 'Frankfurt',
-            formatted_address: "Frankfurt, Germany",
-            place_id: "ChIJxZZwR28JvUcRAMawKVBDIgQ",
-        },
-        {
-            location: {
-                lat: 50.9375,
-                lng: 6.9603
-            },
-            title: 'Cologne',
-            formatted_address: "Cologne, Germany",
-            place_id: "ChIJ5S-raZElv0cR8HcqSvxgJwQ",
-        },
-        {
-            location: {
-                lat: 51.0504,
-                lng: 13.7373
-            },
-            title: 'Dresden',
-            formatted_address: "Dresden, Germany",
-            place_id: "ChIJqdYaECnPCUcRsP6IQsuxIQQ",
-        },
-        {
-            location: {
-                lat: 51.3397,
-                lng: 12.3731
-            },
-            title: 'Leipzig',
-            formatted_address: "Leipzig, Germany",
-            place_id: "ChIJcywPIBj4pkcRUvW0udKA35M",
-        },
-        {
-            location: {
-                lat: 49.3988,
-                lng: 8.6724
-            },
-            title: 'Heidelberg',
-            formatted_address: "Heidelberg, Germany",
-            place_id: "ChIJzdzMDgXBl0cR1zokRADq5u8",
-        },
-        {
-            location: {
-                lat: 50.9795,
-                lng: 11.3235
-            },
-            title: 'Weimar',
-            formatted_address: "Weimar, Germany",
-            place_id: "ChIJqVvtMcYapEcRQDYzdMGOIAQ",
-        },
-        {
-            location: {
-                lat: 51.2277,
-                lng: 6.7735
-            },
-            title: 'Dusseldorf',
-            formatted_address: "Düsseldorf, Germany",
-            place_id: "ChIJB1lG8XvJuEcRsHMqSvxgJwQ",
-
-        },
-        {
-            location: {
-                lat: 52.3906,
-                lng: 13.0645
-            },
-            title: 'Potsdam',
-            formatted_address: "Potsdam, Germany",
-            place_id: "ChIJt9Y6hM31qEcRm-yqC5j4ZcU",
-        },
-        {
-            location: {
-                lat: 51.4556432,
-                lng: 7.0115552
-            },
-            title: 'Essen',
-            formatted_address: "Essen, Germany",
-            place_id: "ChIJOfarlrfCuEcRnSytpBHhAGo",
-        }
-    ]
-};
-
 // location model to hold data for each location
-var locationModel = function(loc) {
+var LocationModel = function(loc) {
     var self = this;
     this.location = loc.location;
     this.title = loc.title;
@@ -129,16 +25,16 @@ var locationModel = function(loc) {
     // if a location is visible, show the corresponding marker on map otherwise hide the marker
     this.showMarker = ko.computed(function() {
         if (self.visible() === true) {
-            self.marker.setMap(map);
+            self.marker.setVisible(true);
         } else {
-            self.marker.setMap(null);
+            self.marker.setVisible(false);
         }
     });
 };
 
 // viewModel provides data binding using knockout
 var map;
-var viewModel = function() {
+var ViewModel = function() {
     var self = this;
     var bounds = new google.maps.LatLngBounds();
     // new google map
@@ -152,11 +48,12 @@ var viewModel = function() {
     // read locations and push into observableArray
     this.locations = ko.observableArray();
     neighborhood.locations.forEach(function(location) {
-        self.locations.push(new locationModel(location));
+        self.locations.push(new LocationModel(location));
     });
     this.currentLocation = ko.observable(this.locations()[0]);
+    
+    this.infoWindow = new google.maps.InfoWindow(); // creating multiple 
 
-    this.infoWindow = new google.maps.InfoWindow();
     this.locations().forEach(function(location) {
         var marker = location.marker;
         if (self.infoWindow.marker != marker) {
@@ -170,7 +67,9 @@ var viewModel = function() {
         bounds.extend(marker.position);
     });
 
-    map.fitBounds(bounds);
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(bounds);
+    });
 
     // filteredLocations is locatins without filtering
     this.filteredLocations = this.locations;
@@ -210,15 +109,13 @@ var viewModel = function() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
             marker.setAnimation(null);
-        }, 750);
+        }, 1400);
     }
     // attach marker to infoWindow and setting content and click event from infowindow
     function populateInfoWindow(marker) {
         self.infoWindow.marker = marker;
         self.infoWindow.setContent(marker.infoWindowContent);
         self.infoWindow.open(map, marker);
-        ko.cleanNode($('.btn-modal-image')[0]);
-        ko.applyBindings(model, $('.btn-modal-image')[0]);
     }
     // handle button click event inside infowindow
     this.showModal = function() {
@@ -229,6 +126,29 @@ var viewModel = function() {
 
 var model;
 var initApp = function() {
-    model = new viewModel();
+    model = new ViewModel();
     ko.applyBindings(model);
+};
+
+$(".hamburger").hide();
+$(".cross").show();
+
+$(".cross").click(function() {
+    $(".list").slideToggle("slow", function() {
+        $(".hamburger").show();
+        $(".cross").hide();
+    });
+});
+
+$(".hamburger").click(function() {
+    $(".list").slideToggle("slow", function() {
+        $(".cross").show();
+        $(".hamburger").hide();
+    });
+});
+
+
+var mapError = function() {
+    document.getElementById('map-error').style.display = 'block';
+    document.getElementById('map-error').innerHTML = 'Sorry, something went wrong. Please try again later.';
 };
