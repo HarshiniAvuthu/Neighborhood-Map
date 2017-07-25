@@ -2,27 +2,26 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Map</title>
-	<link rel="stylesheet" href="css/styles.css">
+    <title>Map</title>
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-	<div id="map"></div>
+    <div id="map"></div>
     <div class="search-container">
-      	<div class="search-list" data-bind="visible: menuVisible">
-        	<input class="form-control" data-bind="textInput: Query" placeholder="Filter locations">
+        <div class="search-list" data-bind="visible: menuVisible">
+            <input class="form-control" data-bind="textInput: Query" placeholder="Filter locations">
             <a class="hamburger">&#9776;</a>
             <a class="cross">&times;</a>
-        	<ul class="list" data-bind="foreach: filteredLocations">
-          		<li class="loc-list" data-bind="text: $data.title, click: $parent.listClick"></li>
-        	</ul>
-      	</div>
+            <ul class="list" data-bind="foreach: filteredLocations">
+                <li class="loc-list" data-bind="text: $data.title, click: $parent.listClick"></li>
+            </ul>
+        </div>
     </div>
-	<script src="js/knockout-3.4.0.js"></script>
-  	<script src="js/jquery-3.1.0.min.js"></script>
-	<script src='js/sample.js'></script>
+    <script src="js/knockout-3.4.0.js"></script>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src='js/sample.js'></script>
     <script src="js/model.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dtzRCgVlzC905jc3jSo22vdAIZGsUgg&v=3&callback=initApp&libraries=places"
-    async defer onerror="mapError()"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dtzRCgVlzC905jc3jSo22vdAIZGsUgg&v=3&callback=initApp&libraries=places" async defer onerror="mapError()"></script>
 </body>
 </html>
