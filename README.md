@@ -1,7 +1,12 @@
 ## Neighborhood-Map
 
 # Overview
-This single page application shows a map identifying cities near Germany. This app is built for a Neighbourhood map project which is a part of the Front End Web Development Nanodegree at Udacity.
+This single page application shows a map identifying top picks in Delhi. This app is built for a Neighbourhood map project which is a part of the Front End Web Development Nanodegree at Udacity.
+
+# Getting started
+Clone the repo to your local machine: $ git clone https://github.com/HarshiniAvuthu/Neighborhood-Map.git
+Launch a local http server to test: $ python -m SimpleHTTPServer
+In the same directory, run the commend: ./ngrok http 8080 to access a secure public URL to the site.
 
 # Libraries, frameworks and APIs used
 - Knockout JS
