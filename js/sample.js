@@ -35,6 +35,9 @@ var LocationModel = function(loc, markers) {
             });
         }).done(function() {
             that.content = '<h3>' + that.title + '</h3> <h4> Top tips: </h4>' + '<ol class="tips">' + topTips.join('') + '</ol>';
+        }).fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log('getJSON request failed! ' + err);
         });
     };
 
@@ -161,7 +164,7 @@ $(".hamburger").click(function() {
     });
 });
 
-var mapError = function() {
-    document.getElementById('map-error').style.display = 'block';
-    document.getElementById('map-error').innerHTML = 'Sorry, something went wrong. Please try again later.';
-};
+// Google Map Error
+function mapError() {
+     alert("sorry, Google Maps did not load");
+}
